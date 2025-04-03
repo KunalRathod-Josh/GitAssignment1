@@ -1,0 +1,63 @@
+Q5. Difference between --force push and --force-with-lease, You have to show the use of both, also you have to show in what scenario --force-with-lease is used.
+
+1. Using git push --force (Risky)
+If you rewrite history and force push, it will overwrite everything, even if someone else has pushed new commits.
+
+Example: Using --force
+Step 1: Initial Commits
+Assume we have this commit history on main:
+
+css
+Copy
+Edit
+A - B - C (origin/main)
+You decide to revert back to commit B and push:
+
+sh
+Copy
+Edit
+git reset --hard B
+git push origin main --force
+What Happens?
+Commit C is deleted from the remote repository.
+
+If another developer had pushed a new commit D, it gets lost!
+
+2. Using git push --force-with-lease (Safer)
+This option checks if the remote branch is the same as your last known state before overwriting.
+
+Example: Using --force-with-lease
+Step 1: Initial Commits
+css
+Copy
+Edit
+A - B - C (origin/main)
+Step 2: You Modify History
+You reset the last commit:
+
+sh
+Copy
+Edit
+git reset --hard B
+git push origin main --force-with-lease
+What Happens?
+If nobody else has updated the branch, your changes are applied.
+
+If someone else has pushed commits (e.g., D), Git rejects your push:
+
+vbnet
+Copy
+Edit
+error: failed to push some refs to 'origin'
+This prevents accidental overwriting of commits!
+
+When to Use --force-with-lease?
+Use it when you want to rewrite history but only if the remote branch is unchanged.
+Don't use --force unless you're sure no one else has pushed changes.
+
+Final Thoughts
+--force is dangerous (only use it when working alone or fixing errors).
+
+--force-with-lease is safe (prevents overwriting others’ work).
+
+Would you like a real-world scenario where this is critical?

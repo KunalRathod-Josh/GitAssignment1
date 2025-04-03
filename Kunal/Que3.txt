@@ -1,0 +1,77 @@
+Q3. How to combine two commits into one commit? For Example, you have 4 different commits C1, C2, C3, and  C4, and you to combine C2 and C3 into one single commit. 
+
+Steps to Combine C2 and C3 into One Commit
+Assume your commit history looks like this:
+
+scss
+Copy
+Edit
+C4 (latest)
+C3
+C2
+C1 (oldest)
+You want to merge C2 and C3 into a single commit.
+
+1. Start Interactive Rebase
+Run the following command to start rebase from C1:
+
+sh
+Copy
+Edit
+git rebase -i HEAD~3
+Here, HEAD~3 means we are rebasing the last three commits (C2, C3, and C4).
+
+2. Modify the Rebase List
+You'll see a list of commits in your editor:
+
+rust
+Copy
+Edit
+pick C2 Commit message for C2
+pick C3 Commit message for C3
+pick C4 Commit message for C4
+Modify it to:
+
+rust
+Copy
+Edit
+pick C2 Commit message for C2
+squash C3 Commit message for C3
+pick C4 Commit message for C4
+pick → Keep the commit as is.
+
+squash (s) → Combine this commit with the previous one.
+
+3. Edit the Commit Message
+Git will prompt you to edit the commit message:
+
+nginx
+Copy
+Edit
+# This is a combination of C2 and C3
+Commit message for C2
+Commit message for C3
+Modify it if needed, then save and exit.
+
+4. Complete the Rebase
+After saving, Git will squash C3 into C2 and rewrite history.
+
+5. Push the Changes (If Already Pushed)
+If you had already pushed your commits, you need to force-push:
+
+sh
+Copy
+Edit
+git push origin main --force
+Warning: Force push can overwrite history for others. Be careful if working in a team!
+
+Final Commit History After Squashing
+vbnet
+Copy
+Edit
+C4 (latest)
+C2' (C2 + C3 combined)
+C1 (oldest)
+Now, C2 and C3 are merged into a single commit, keeping your history clean!
+
+Would you like a demo repository for this? 

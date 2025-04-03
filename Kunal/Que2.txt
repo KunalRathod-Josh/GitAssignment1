@@ -1,0 +1,84 @@
+Q2. How to set multiple remote repositories for the same project? Explain the use case. you should have a working demo of it.
+
+Steps to Set Multiple Remote Repositories
+1. Initialize Git and Add a Remote Repository
+sh
+Copy
+Edit
+git init
+git remote add origin https://github.com/username/repository.git
+2. Add Another Remote Repository
+sh
+Copy
+Edit
+git remote add backup https://gitlab.com/username/repository.git
+3. Verify the Remote Repositories
+sh
+Copy
+Edit
+git remote -v
+This should show:
+
+perl
+Copy
+Edit
+origin  https://github.com/username/repository.git (fetch)
+origin  https://github.com/username/repository.git (push)
+backup  https://gitlab.com/username/repository.git (fetch)
+backup  https://gitlab.com/username/repository.git (push)
+4. Push to Multiple Repositories
+To push to GitHub only:
+
+sh
+Copy
+Edit
+git push origin main
+To push to GitLab only:
+
+sh
+Copy
+Edit
+git push backup main
+To push to both:
+
+sh
+Copy
+Edit
+git push origin main
+git push backup main
+5. Set Up a Single Command to Push to Multiple Repos
+Modify the .git/config file:
+
+sh
+Copy
+Edit
+git remote set-url --add --push origin https://github.com/username/repository.git
+git remote set-url --add --push origin https://gitlab.com/username/repository.git
+Now, running:
+
+sh
+Copy
+Edit
+git push origin main
+will push to both repositories simultaneously.
+
+Demo: Working Example
+Let's create a simple project and push it to two remotes.
+
+sh
+Copy
+Edit
+mkdir multi-remote-demo
+cd multi-remote-demo
+git init
+echo "Hello World" > demo.txt
+git add .
+git commit -m "Initial commit"
+
+# Add two remotes
+git remote add origin https://github.com/username/multi-remote-demo.git
+git remote add backup https://gitlab.com/username/multi-remote-demo.git
+
+# Push to both
+git push origin main
+git push backup main

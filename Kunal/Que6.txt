@@ -1,0 +1,40 @@
+Q6. How to un-stage changes from the staged area. write command for it.
+
+1. Unstage a Specific File
+If you staged a file using git add file.txt but want to unstage it:
+
+sh
+Copy
+Edit
+git reset file.txt
+The file will remain unchanged, but it moves from the staged area back to the working directory.
+
+2. Unstage All Staged Files
+If you added multiple files and want to unstage everything, use:
+
+sh
+Copy
+Edit
+git reset
+This removes all staged changes but keeps the actual file modifications.
+
+3. Unstage and Discard All Changes
+If you want to remove both staged and unstaged changes (irreversible action):
+
+sh
+Copy
+Edit
+git reset --hard
+This resets your working directory to the last committed state.
+
+4. Unstage the Last Commit (But Keep Changes)
+If you already committed but want to undo the commit while keeping the changes:
+
+sh
+Copy
+Edit
+git reset --soft HEAD~1
+This moves the changes back to the staged area.
+
+
+

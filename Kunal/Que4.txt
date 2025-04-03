@@ -1,0 +1,78 @@
+Q4. How to delete one commit or multiple commits permanently Write a command for it. 
+
+
+1. Delete the Most Recent Commit (Not Pushed)
+If you want to delete the last commit permanently before pushing it:
+
+sh
+Copy
+Edit
+git reset --hard HEAD~1
+This removes the last commit and resets your working directory to the previous commit.
+
+2. Delete the Most Recent Commit (Already Pushed)
+If the commit is already pushed to a remote repository:
+
+sh
+Copy
+Edit
+git reset --hard HEAD~1
+git push origin main --force
+Warning: Force pushing (--force) can rewrite history and affect collaborators.
+
+3. Delete Multiple Commits
+If you want to delete the last N commits, use:
+
+sh
+Copy
+Edit
+git reset --hard HEAD~N
+git push origin main --force
+For example, to delete the last 3 commits:
+
+sh
+Copy
+Edit
+git reset --hard HEAD~3
+git push origin main --force
+4. Delete a Specific Commit in History
+If you want to delete an older commit (e.g., C2 in the history below):
+
+scss
+Copy
+Edit
+C4 (latest)
+C3
+C2 (delete this)
+C1 (oldest)
+Use interactive rebase:
+
+sh
+Copy
+Edit
+git rebase -i HEAD~4
+Modify the list:
+
+rust
+Copy
+Edit
+pick C1 Commit message for C1
+pick C3 Commit message for C3
+pick C4 Commit message for C4
+Remove C2's line, save, and exit.
+
+Then force-push:
+
+sh
+Copy
+Edit
+git push origin main --force
+5. Delete a Commit Using git reflog
+If you made a mistake and want to undo a reset:
+
+sh
+Copy
+Edit
+git reflog
+git reset --hard <commit-hash>
+Replace <commit-hash> with the previous commit before deletion.
